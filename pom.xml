@@ -24,6 +24,7 @@
 		<!--Details regarding azure function service-->
 		<AzureWebJobsServiceBus>${env.AZURE_SERVICE_BUS_KEY}</AzureWebJobsServiceBus>
 		<AzureWebJobsCosmosDBConnectionString>${env.AZURE_COSMOS_DB_KEY}</AzureWebJobsCosmosDBConnectionString>
+
 		<start-class>com.cvs.pnp.springcloudfunction.SpringCloudFunctionApplication</start-class>
 	</properties>
 	<dependencies>
@@ -83,10 +84,12 @@
 							<name>AzureWebJobsServiceBus</name>
 							<value>${AzureWebJobsServiceBus}</value>
 						</property>
+
 						<property>
 							<name>AzureWebJobsCosmosDBConnectionString</name>
 							<value>${AzureWebJobsCosmosDBConnectionString}</value>
 						</property>
+
 					</appSettings>
 				</configuration>
 				<executions>

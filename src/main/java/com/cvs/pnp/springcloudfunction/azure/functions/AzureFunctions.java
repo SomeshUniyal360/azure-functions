@@ -13,12 +13,14 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.OutputBinding;
 import com.microsoft.azure.functions.annotation.AuthorizationLevel;
+
 import com.microsoft.azure.functions.annotation.Cardinality;
 import com.microsoft.azure.functions.annotation.CosmosDBOutput;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 import com.microsoft.azure.functions.annotation.ServiceBusTopicOutput;
 import com.microsoft.azure.functions.annotation.ServiceBusTopicTrigger;
+
 
 
 @Component
@@ -41,12 +43,14 @@ public class AzureFunctions {
 				.header("Content-Type", "application/json").build();
 	}
 
+
 	@FunctionName("postOrderStatusToServiceBus")
 	public HttpResponseMessage postOrderStatusToServiceBus(@HttpTrigger(name = "postOrderStatus", methods = {
 			HttpMethod.POST }, route = "submit/order/status", authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<String> request,
 			@ServiceBusTopicOutput(name = "orderStatusUpdate", topicName = "pnporderstatus", subscriptionName = "OrderStatusUpdates", connection = "AzureWebJobsServiceBus") OutputBinding<String> output,
 			final ExecutionContext context) {
 		context.getLogger().info("running postOrderStatusToServiceBus azure function");
+
 		String order = request.getBody();
 		boolean status = orderValidator.apply(order);
 		Response<String> responce = new Response<String>();
@@ -60,6 +64,7 @@ public class AzureFunctions {
 		}
 		return request.createResponseBuilder(HttpStatus.OK).body(responce).header("Content-Type", "application/json")
 				.build();
+
 	}
 
 	@FunctionName("saveOrderStatusToCosmosDb")
@@ -70,5 +75,6 @@ public class AzureFunctions {
 		context.getLogger().info("running saveOrderStatusToCosmosDb azure function");
 		output.setValue(message);
 		context.getLogger().info("saveOrderStatusToCosmosDb processed a message: " + message);
+
 	}
 }
