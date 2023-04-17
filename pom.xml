@@ -19,10 +19,11 @@
 		<!--Details regarding azure function service-->
 		<functionResourceGroup>azure-functions-dev</functionResourceGroup>
 		<functionAppServicePlanName>ASP-azurefunctionsdev-aafe</functionAppServicePlanName>
-		<functionAppName>SpringCloudFunction</functionAppName>
+		<functionAppName>SpringCloudFunctionDev</functionAppName>
 		<functionAppRegion>eastus</functionAppRegion>
 		<!--Details regarding azure function service-->
 		<AzureWebJobsServiceBus>${env.AZURE_SERVICE_BUS_KEY}</AzureWebJobsServiceBus>
+		<AzureWebJobsCosmosDBConnectionString>${env.AZURE_COSMOS_DB_KEY}</AzureWebJobsCosmosDBConnectionString>
 		<start-class>com.cvs.pnp.springcloudfunction.SpringCloudFunctionApplication</start-class>
 	</properties>
 	<dependencies>
@@ -81,6 +82,10 @@
 						<property>
 							<name>AzureWebJobsServiceBus</name>
 							<value>${AzureWebJobsServiceBus}</value>
+						</property>
+						<property>
+							<name>AzureWebJobsCosmosDBConnectionString</name>
+							<value>${AzureWebJobsCosmosDBConnectionString}</value>
 						</property>
 					</appSettings>
 				</configuration>
